@@ -92,6 +92,8 @@ module lab2_proc_ProcBaseDpathVRTL
   logic [31:0] br_target_X;
   logic [31:0] jal_target_D;
 
+ // pc_F points to (c_reset_vector - 4) during reset
+ // Once enabled, pc_F will point to the c_reset_vector
   vc_EnResetReg #(32, c_reset_vector - 32'd4) pc_reg_F
   (
     .clk    (clk),
@@ -101,6 +103,7 @@ module lab2_proc_ProcBaseDpathVRTL
     .q      (pc_F)
   );
 
+  // connect the +4 module
   vc_Incrementer #(32, 4) pc_incr_F
   (
     .in   (pc_F),
@@ -124,7 +127,7 @@ module lab2_proc_ProcBaseDpathVRTL
   logic   [4:0] inst_rd_D;
   logic   [4:0] inst_rs1_D;
   logic   [4:0] inst_rs2_D;
-  logic  [31:0] imm_D;
+  logic  [31:0] imm_D;       // output from the imm_generator module
 
   vc_EnResetReg #(32) pc_reg_D
   (
