@@ -129,6 +129,8 @@ class ProcFL( Model ):
   def line_trace( s ):
     if s.trace_regs:
       return s.trace + "  " + s.isa.R.trace_regs_str()
+    # s.trace returns "pc inst"
+    # trace_regs_str returns "dest_R=value source0_R=value source1_R=value"
     else:
       return s.trace
 

@@ -75,10 +75,15 @@ module lab2_proc_ProcBaseCtrlVRTL
   // Notes
   //----------------------------------------------------------------------
   // We follow this principle to organize code for each pipeline stage in
-  // the control unit.  Register enable logics should always at the
-  // beginning. It followed by pipeline registers. Then logic that is not
-  // dependent on stall or squash signals. Then logic that is dependent
-  // on stall or squash signals. At the end there should be signals meant
+  // the control unit.  
+  // - Register enable logics should always at the
+  // beginning. 
+  // - pipeline registers. 
+  // - logic that is not
+  // dependent on stall or squash signals. 
+  // - logic that is dependent
+  // on stall or squash signals. 
+  // - At the end there should be signals meant
   // to be passed to the next stage in the pipeline.
 
   //----------------------------------------------------------------------
@@ -166,7 +171,7 @@ module lab2_proc_ProcBaseCtrlVRTL
 
   always_comb begin
     if ( pc_redirect_X )       // If a branch is taken in X stage
-      pc_sel_F = pc_sel_X;     // Use pc from X
+      pc_sel_F = pc_sel_X;     // Use pc from stage X
     else
       pc_sel_F = 2'b0;         // Use pc+4
   end

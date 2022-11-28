@@ -14,6 +14,12 @@ from lab2_proc.ProcFL import ProcFL
 #-------------------------------------------------------------------------
 
 import inst_add
+# the list of tests for add were defined in inst_add.py.
+
+# example: asm_test( inst_Add.gen_basic_test )
+# asm_test() is defined in harness.py, it takes a function, returns
+# (func_name, func).
+# In this example, func_name = "basic_test".
 
 @pytest.mark.parametrize( "name,test", [
   asm_test( inst_add.gen_basic_test     ) ,

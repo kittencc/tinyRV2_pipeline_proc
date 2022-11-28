@@ -301,6 +301,18 @@ class TinyRV2Semantics (object):
     # for mngr2proc just ignore the rs1 and do _not_ write to CSR at all.
     # this is the same as setting rs1 = x0.
 
+    # comment by cc++
+    # csrr is suppose to read "control status registers" in the
+    # instruction [31:20] field, but here we are reading from the
+    # mngr2proc interface?
+    # comment by cc--
+
+    # csrr instruction performs different operations depending on the
+    # value in the csrr field of the instruction inst.csrnum.
+    # 0xFC0: read from mngr2proc.
+    # 0x7C0: write to proc2mngr. 
+    # 0x7C1: stats_en
+
     if   inst.csrnum == 0xFC0:
       bits = s.mngr2proc_queue.popleft()
       s.mngr2proc_str = str(bits)

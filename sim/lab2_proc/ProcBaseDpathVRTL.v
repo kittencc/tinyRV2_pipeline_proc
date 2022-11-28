@@ -168,7 +168,9 @@ module lab2_proc_ProcBaseDpathVRTL
 
   logic [31:0] rf_rdata0_D;
   logic [31:0] rf_rdata1_D;
-
+  
+  // write data for the register file
+  // In the datapath block diagram, this signal is in W stage.
   logic [31:0] rf_wdata_W;
 
   vc_Regfile_2r1w_zero rf
@@ -186,6 +188,7 @@ module lab2_proc_ProcBaseDpathVRTL
 
   logic [31:0] op2_D;
 
+  // output from the csrr selection mux
   logic [31:0] csrr_data_D;
 
   logic [31:0] num_cores;

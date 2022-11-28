@@ -211,6 +211,7 @@ def assemble_field_rs2( bits, sym, pc, field_str ):
 
   bits[ tinyrv2_field_slice_rs2 ] = reg_specifier
 
+# {:0>2} fills zero on the left
 def disassemble_field_rs2( bits ):
   return "x{:0>2}".format( bits[ tinyrv2_field_slice_rs2 ].uint() )
 

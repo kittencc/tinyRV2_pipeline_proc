@@ -187,6 +187,8 @@ module rv2isa_InstTasks();
   logic [`RV2ISA_INST_RD_NBITS-1:0]  rd;
   logic [`RV2ISA_INST_CSR_NBITS-1:0] csr;
 
+  // function: takes an instruction (binary number) and outputs the
+  // corresponding assembly code as a string
   function [25*8-1:0] disasm( input [`RV2ISA_INST_NBITS-1:0] inst );
   begin
 
