@@ -37,7 +37,7 @@ def gen_very_basic_test():
 
     # This branch should be taken
     bne   x1, x2, label_a
-    addu  x3, x3, r4
+    add  x3, x3, r4
 
     nop
     nop
@@ -49,7 +49,7 @@ def gen_very_basic_test():
     nop
 
   label_a:
-    addu  x3, x3, r4
+    add  x3, x3, r4
 
     # One and only one of the above two addu instructinos should have
     # been executed which means the result should be exactly one.
