@@ -6,7 +6,8 @@
 # 'verilog' if you are using Verilog for your RTL design (i.e., your
 # design is in IntMulBaseVRTL).
 
-rtl_language = 'pymtl'
+#rtl_language = 'pymtl'
+rtl_language = 'verilog'
 
 #-------------------------------------------------------------------------
 # Do not edit below this line

@@ -28,6 +28,7 @@ module lab2_proc_ProcBaseCtrlVRTL
 
   output logic        dmemreq_val,
   input  logic        dmemreq_rdy,
+  output logic [1:0]  dmemreq_type,
 
   input  logic        dmemresp_val,
   output logic        dmemresp_rdy,
@@ -75,14 +76,14 @@ module lab2_proc_ProcBaseCtrlVRTL
   // Notes
   //----------------------------------------------------------------------
   // We follow this principle to organize code for each pipeline stage in
-  // the control unit.  
+  // the control unit.
   // - Register enable logics should always at the
-  // beginning. 
-  // - pipeline registers. 
+  // beginning.
+  // - pipeline registers.
   // - logic that is not
-  // dependent on stall or squash signals. 
+  // dependent on stall or squash signals.
   // - logic that is dependent
-  // on stall or squash signals. 
+  // on stall or squash signals.
   // - At the end there should be signals meant
   // to be passed to the next stage in the pipeline.
 
@@ -267,6 +268,7 @@ module lab2_proc_ProcBaseCtrlVRTL
   localparam alu_x    = 4'bx;
   localparam alu_add  = 4'd0;
   localparam alu_sub  = 4'd1;
+  localparam alu_addi = 4'd2;
   localparam alu_cp0  = 4'd11;
   localparam alu_cp1  = 4'd12;
 
@@ -351,6 +353,9 @@ module lab2_proc_ProcBaseCtrlVRTL
       `RV2ISA_INST_BNE     :cs( y, br_bne, imm_b, y, bm_rf,  y, alu_x,   nr, wm_a, n,  n,   n    );
       `RV2ISA_INST_CSRR    :cs( y, br_na,  imm_i, n, bm_csr, n, alu_cp1, nr, wm_a, y,  y,   n    );
       `RV2ISA_INST_CSRW    :cs( y, br_na,  imm_i, y, bm_rf,  n, alu_cp0, nr, wm_a, n,  n,   y    );
+      `RV2ISA_INST_SUB     :cs( y, br_na,  imm_x, y, bm_rf,  y, alu_add, nr, wm_a, y,  n,   n    );
+      `RV2ISA_INST_ADDI    :cs( y, br_na,  imm_i, y, bm_imm, n, alu_addi,nr, wm_a, y,  n,   n    );
+      `RV2ISA_INST_SW      :cs( y, br_na,  imm_s, y, bm_imm, y, alu_add, st, wm_m, n,  n,   n    );
 
       //''' LAB TASK '''''''''''''''''''''''''''''''''''''''''''''''''''''
       // Add more instructions to the control signal table
@@ -522,6 +527,10 @@ module lab2_proc_ProcBaseCtrlVRTL
   // set dmemreq_val only if not stalling
 
   assign dmemreq_val = val_X && !stall_X && ( dmemreq_type_X != nr );
+
+  // send dmemreq type to the top-level module ProcBaseVRTL to construct
+  // the memory request message for sw
+  assign dmemreq_type = dmemreq_type_X;
 
   // Valid signal for the next stage
 

@@ -173,11 +173,15 @@ def run_test( ProcModel, gen_test, dump_vcd=None,
   sim.reset()
   while not model.done() and sim.ncycles < max_cycles:
     sim.print_line_trace()
+    # print additional things for debugging
+#    print("alu_fn = %d", model.proc.mngr2proc_val)
+    
     sim.cycle()
 
-  # print the very last line trace after the last tick
 
+  # print the very last line trace after the last tick
   sim.print_line_trace()
+
 
   # Force a test failure if we timed out
 
